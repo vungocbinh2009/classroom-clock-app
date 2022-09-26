@@ -6,3 +6,14 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+export interface IElectronAPI {
+  selectFile: () => void
+  selectFileComplete: (handler: (filePath: string) => void) => void
+}
+
+declare global {
+  interface Window {
+    electron: IElectronAPI;
+  }
+}

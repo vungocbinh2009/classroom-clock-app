@@ -1,3 +1,6 @@
+import { contextBridge, dialog, ipcRenderer, IpcRendererEvent } from "electron"
+import { ipcMain, IpcMainEvent, OpenDialogOptions } from "electron"
+
 function domReady(condition: DocumentReadyState[] = ['complete', 'interactive']) {
   return new Promise(resolve => {
     if (condition.includes(document.readyState)) {
@@ -90,3 +93,17 @@ window.onmessage = ev => {
 }
 
 setTimeout(removeLoading, 4999)
+
+// Các sự kiện cần code bắt đầu từ đây.
+contextBridge.exposeInMainWorld("electron", {
+  selectFile: () => {
+    ipcRenderer.send("select-file");
+  },
+  selectFileComplete: (handler: (filePath: string) => void) => {
+    ipcRenderer.on("select-file-complete", (e: IpcRendererEvent, ...args: any[]) => {
+      handler(args[0])
+    })
+  }
+});
+
+
