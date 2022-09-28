@@ -1,8 +1,12 @@
-<script lang="ts" setup>import Timer from 'easytimer.js';
+<script lang="ts" setup>
+import Timer from 'easytimer.js';
 import { useSettingsStore } from '../plugins/pinia';
 import { displayTime } from '../utils/timer';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import WebViewer from '../components/WebViewer.vue'
+
+let publicPath = process.env.BASE_URL
 
 let settingsStore = useSettingsStore()
 
@@ -43,7 +47,7 @@ let displayTimeString = ref("")
 <template>
     <div class="container">
         <div class="content">
-    
+            <WebViewer :path="`${publicPath}lib`"/>
         </div>
         <div class="title">
             <h1>{{settingsStore.title}}</h1>

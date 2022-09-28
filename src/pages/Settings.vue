@@ -75,8 +75,8 @@ onMounted(() => {
     <h5 v-if="settingsStore.countdownMode != CountdownMode.SIMPLE_COUNTDOWN">
         Tập tin cần hiển thị
     </h5>
-    <Button class="start-button" label="Chọn tập tin" @click="selectFile()" />
-    <p>Đường dẫn: {{settingsStore.selectedFilePath}}</p>
+    <Button v-if="settingsStore.countdownMode != CountdownMode.SIMPLE_COUNTDOWN" class="start-button" label="Chọn tập tin" @click="selectFile()" />
+    <p v-if="settingsStore.countdownMode != CountdownMode.SIMPLE_COUNTDOWN">Đường dẫn: {{settingsStore.selectedFilePath}}</p>
 
     <br />
     <h5 />
