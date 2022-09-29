@@ -4,9 +4,10 @@ import { useSettingsStore } from '../plugins/pinia';
 import { displayTime } from '../utils/timer';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import WebViewer from '../components/WebViewer.vue'
+import PdfViewer from '../components/PdfViewer.vue'
+import ContextMenu from 'primevue/contextmenu';
+import { MenuItem, MenuItemCommandEvent } from 'primevue/menuitem';
 
-let publicPath = process.env.BASE_URL
 
 let settingsStore = useSettingsStore()
 
@@ -41,20 +42,53 @@ let returnToSettings = () => {
     router.back()
 }
 
+let contextMenuItem: Array<MenuItem> = [
+    {
+        label: "Quay lại",
+        command: (event: MenuItemCommandEvent) => {
+            router.back()
+        },
+    },
+    {
+        label: "Dừng/tiếp tục đồng hồ",
+        command: (event: MenuItemCommandEvent) => {
+            if (timer.isPaused()) {
+                timer.start()
+            } else {
+                timer.pause()
+            }
+        },
+    },
+];
+
+let contextMenu: any = ref()
+
+let showContextMenu = (event: Event) => {
+    contextMenu.value.show(event)
+}
+
 let displayTimeString = ref("")
+
+let path = 'web/viewer.html'
+let fileName = settingsStore.selectedFilePath
 </script>
 
 <template>
     <div class="container">
         <div class="content">
-            <WebViewer :path="`${publicPath}lib`"/>
+            <PdfViewer :path="path" :fileName="fileName" />
         </div>
-        <div class="title">
-            <h1>{{settingsStore.title}}</h1>
+        <div class="title" @contextmenu="showContextMenu">
+            <div>
+                <h1>{{settingsStore.title}}</h1>
+            </div>
         </div>
-        <div class="clock">
-            <h1>{{displayTimeString}}</h1>
+        <div class="clock" @contextmenu="showContextMenu">
+            <div>
+                <h1 class="timer-text">{{displayTimeString}}</h1>
+            </div>
         </div>
+        <ContextMenu ref="contextMenu" :model="contextMenuItem" />
     </div>
 </template>
 
@@ -62,7 +96,7 @@ let displayTimeString = ref("")
 .container {
     display: grid;
     grid-template-columns: 4fr 1fr;
-    grid-template-rows: 80vh 20vh;
+    grid-template-rows: 77vh 19vh;
     gap: 0px 0px;
     grid-template-areas:
         "content content"
@@ -75,9 +109,21 @@ let displayTimeString = ref("")
 
 .title {
     grid-area: title;
+    display: flex;
+    align-items: center;
+    padding: 20px;
 }
 
 .clock {
     grid-area: clock;
+    display: flex;
+    background-color: orangered;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-text {
+    font-size: 80px;
+    color: white;
 }
 </style>

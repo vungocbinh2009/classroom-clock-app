@@ -16,7 +16,6 @@ let startClock = () => {
         [CountdownMode.SIMPLE_COUNTDOWN]: "/countdown",
         [CountdownMode.COUNTDOWN_WITH_PDF]: "/countdown-pdf",
         [CountdownMode.COUNTDOWN_WITH_TEXT]: "/countdown-text",
-        [CountdownMode.COUNTDOWN_WITH_IMAGE]: "/countdown-image",
     }
     router.push(pushRecord[settingsStore.countdownMode])
 }
@@ -25,7 +24,6 @@ let countDownSelection = [
     { name: "Countdown", code: CountdownMode.SIMPLE_COUNTDOWN },
     { name: "Countdown + PDF", code: CountdownMode.COUNTDOWN_WITH_PDF },
     { name: "Countdown + Text", code: CountdownMode.COUNTDOWN_WITH_TEXT },
-    { name: "Countdown + Image", code: CountdownMode.COUNTDOWN_WITH_IMAGE }
 ]
 
 let selectFile = () => {
@@ -44,7 +42,7 @@ onMounted(() => {
     <h1 class="text-center">Cài đặt</h1>
 
     <h5>Chọn chế độ hiển thị</h5>
-    <Dropdown v-model="settingsStore.countdownMode" :options="countDownSelection" optionLabel="name" optionValue="code"
+    <Dropdown class="settingDiv" v-model="settingsStore.countdownMode" :options="countDownSelection" optionLabel="name" optionValue="code"
         placeholder="Chọn chế độ" />
 
     <h5 for="title">Tiêu đề</h5>
@@ -71,12 +69,6 @@ onMounted(() => {
     </h5>
     <InputText v-if="settingsStore.countdownMode == CountdownMode.SIMPLE_COUNTDOWN" class="settingDiv" id="nextTitle"
         type="text" v-model="settingsStore.nextTitle" />
-
-    <h5 v-if="settingsStore.countdownMode != CountdownMode.SIMPLE_COUNTDOWN">
-        Tập tin cần hiển thị
-    </h5>
-    <Button v-if="settingsStore.countdownMode != CountdownMode.SIMPLE_COUNTDOWN" class="start-button" label="Chọn tập tin" @click="selectFile()" />
-    <p v-if="settingsStore.countdownMode != CountdownMode.SIMPLE_COUNTDOWN">Đường dẫn: {{settingsStore.selectedFilePath}}</p>
 
     <br />
     <h5 />

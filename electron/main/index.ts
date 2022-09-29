@@ -12,7 +12,7 @@
 process.env.DIST = join(__dirname, '../..')
 process.env.PUBLIC = app.isPackaged ? process.env.DIST : join(process.env.DIST, '../public')
 
-import { app, BrowserWindow, shell, ipcMain } from 'electron'
+import { app, BrowserWindow, shell, ipcMain, protocol } from 'electron'
 import { release } from 'os'
 import { join } from 'path'
 import { setupIpcMain } from './ipcMain'
@@ -47,6 +47,7 @@ async function createWindow() {
       preload,
       nodeIntegration: false,
       contextIsolation: true,
+      webSecurity: false
     },
   })
 
