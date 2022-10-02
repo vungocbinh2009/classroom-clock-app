@@ -2,6 +2,7 @@
 </script>
 
 <template>
+<!-- turnoff spellcheck-->
 <RouterView/>
 </template>
 
@@ -9,4 +10,7 @@
 body {
     font-family: "Roboto";
 }
+
+
+
 </style>

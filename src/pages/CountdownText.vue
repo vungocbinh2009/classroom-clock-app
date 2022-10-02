@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import { Timer, TimerEventType} from 'easytimer.js';
+import { Timer} from 'easytimer.js';
 import { useSettingsStore } from '../plugins/pinia';
 import { displayTime } from '../utils/timer';
-import Editor from 'primevue/editor';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import ContextMenu from 'primevue/contextmenu';
 import { MenuItem, MenuItemCommandEvent } from "primevue/menuitem";
-
+import Tiptap from '../components/Tiptap.vue'
+import InputText from 'primevue/inputtext';
+import TimerDialog from '../components/TimerDialog.vue';
 
 let settingsStore = useSettingsStore()
 
@@ -38,11 +39,17 @@ onMounted(() => {
     });
 })
 
-let editorText = ref("")
+settingsStore.$subscribe((mutation, state) => {
+    timer.stop()
+    timer.start(
+        {
+            countdown: true,
+            startValues: { seconds: settingsStore.totalTimeSeconds },
+        }
+    );
+})
 
-let returnToSettings = () => {
-    router.back()
-}
+let displayTimerDialog = ref(false)
 
 let contextMenuItem: Array<MenuItem> = [
     {
@@ -61,6 +68,12 @@ let contextMenuItem: Array<MenuItem> = [
             }
         },
     },
+    {
+        label: "Đặt lại đồng hồ",
+        command: (event: MenuItemCommandEvent) => {
+            displayTimerDialog.value = true
+        },
+    },
 ];
 
 let contextMenu: any = ref()
@@ -69,18 +82,17 @@ let showContextMenu = (event: Event) => {
     contextMenu.value.show(event)
 }
 
+let title = settingsStore.title
+
 let displayTimeString = ref("")
+
 </script>
 
 <template>
     <div class="container">
-        <div class="content">
-            <Editor v-model="editorText" editorStyle="height: 73vh" />
-        </div>
-        <div class="title" @contextmenu="showContextMenu">
-            <div>
-                <h1>{{settingsStore.title}}</h1>
-            </div>
+        <tiptap class="content" />
+        <div @contextmenu="showContextMenu">
+            <InputText type="text" class="p-inputtext-lg title-input title" v-model="title" />
         </div>
         <div class="clock" @contextmenu="showContextMenu">
             <div>
@@ -88,6 +100,7 @@ let displayTimeString = ref("")
             </div>
         </div>
         <ContextMenu ref="contextMenu" :model="contextMenuItem" />
+        <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false" />
     </div>
 </template>
 
@@ -95,7 +108,7 @@ let displayTimeString = ref("")
 .container {
     display: grid;
     grid-template-columns: 4fr 1fr;
-    grid-template-rows: 77vh 19vh;
+    grid-template-rows: 86vh 10vh;
     gap: 0px 0px;
     grid-template-areas:
         "content content"
@@ -104,6 +117,7 @@ let displayTimeString = ref("")
 
 .content {
     grid-area: content;
+    height: 86vh
 }
 
 .title {
@@ -116,12 +130,20 @@ let displayTimeString = ref("")
 .clock {
     grid-area: clock;
     display: flex;
-    background-color: orangered;
+    background-color: #f57328;
     align-items: center;
     justify-content: center;
 }
 
+.title-input {
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    background-color: #FFE9A0;
+}
+
 .timer-text {
+    width: 100%;
     font-size: 80px;
     color: white;
 }

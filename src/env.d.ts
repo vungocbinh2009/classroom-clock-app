@@ -8,8 +8,10 @@ declare module '*.vue' {
 }
 
 export interface IElectronAPI {
-  selectFile: () => void
-  selectFileComplete: (handler: (filePath: string) => void) => void
+  selectFile: () => void;
+  selectFileCompleted: (handler: (filePath: string) => void) => void;
+  selectImage: () => void;
+  selectImageCompleted: (handler: (base64Image: string) => void) => void;
 }
 
 declare global {

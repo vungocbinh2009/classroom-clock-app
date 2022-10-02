@@ -2,11 +2,13 @@
 import Timer from 'easytimer.js';
 import { useSettingsStore } from '../plugins/pinia';
 import { displayTime } from '../utils/timer';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import PdfViewer from '../components/PdfViewer.vue'
 import ContextMenu from 'primevue/contextmenu';
 import { MenuItem, MenuItemCommandEvent } from 'primevue/menuitem';
+import InputText from 'primevue/inputtext';
+import TimerDialog from '../components/TimerDialog.vue';
 
 
 let settingsStore = useSettingsStore()
@@ -38,9 +40,17 @@ onMounted(() => {
     });
 })
 
-let returnToSettings = () => {
-    router.back()
-}
+settingsStore.$subscribe((mutation, state) => {
+    timer.stop()
+    timer.start(
+        {
+            countdown: true,
+            startValues: { seconds: settingsStore.totalTimeSeconds },
+        }
+    );
+})
+
+let displayTimerDialog = ref(false)
 
 let contextMenuItem: Array<MenuItem> = [
     {
@@ -59,6 +69,12 @@ let contextMenuItem: Array<MenuItem> = [
             }
         },
     },
+    {
+        label: "Đặt lại đồng hồ",
+        command: (event: MenuItemCommandEvent) => {
+            displayTimerDialog.value = true
+        },
+    },
 ];
 
 let contextMenu: any = ref()
@@ -71,17 +87,17 @@ let displayTimeString = ref("")
 
 let path = 'web/viewer.html'
 let fileName = settingsStore.selectedFilePath
+
+let title = settingsStore.title
 </script>
 
 <template>
     <div class="container">
-        <div class="content">
-            <PdfViewer :path="path" :fileName="fileName" />
+        <div class="content" >
+            <PdfViewer class="pdf-viewer" :path="path" :fileName="fileName" />
         </div>
         <div class="title" @contextmenu="showContextMenu">
-            <div>
-                <h1>{{settingsStore.title}}</h1>
-            </div>
+            <InputText type="text" class="p-inputtext-lg title-input" v-model="title" />
         </div>
         <div class="clock" @contextmenu="showContextMenu">
             <div>
@@ -89,6 +105,7 @@ let fileName = settingsStore.selectedFilePath
             </div>
         </div>
         <ContextMenu ref="contextMenu" :model="contextMenuItem" />
+        <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>
     </div>
 </template>
 
@@ -96,7 +113,7 @@ let fileName = settingsStore.selectedFilePath
 .container {
     display: grid;
     grid-template-columns: 4fr 1fr;
-    grid-template-rows: 77vh 19vh;
+    grid-template-rows: 86vh 10vh;
     gap: 0px 0px;
     grid-template-areas:
         "content content"
@@ -105,19 +122,20 @@ let fileName = settingsStore.selectedFilePath
 
 .content {
     grid-area: content;
+    width: 100%;
+    height: 100%
 }
 
 .title {
     grid-area: title;
     display: flex;
     align-items: center;
-    padding: 20px;
 }
 
 .clock {
     grid-area: clock;
     display: flex;
-    background-color: orangered;
+    background-color: #f57328;
     align-items: center;
     justify-content: center;
 }
@@ -125,5 +143,17 @@ let fileName = settingsStore.selectedFilePath
 .timer-text {
     font-size: 80px;
     color: white;
+}
+
+.pdf-viewer {
+    width: 100%;
+    height: 100%;
+}
+
+.title-input {
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    background-color: #FFE9A0;
 }
 </style>

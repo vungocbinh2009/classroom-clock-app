@@ -88,7 +88,7 @@ function useLoading() {
 const { appendLoading, removeLoading } = useLoading()
 domReady().then(appendLoading)
 
-window.onmessage = ev => {
+window.onmessage = (ev: { data: { payload: string } }) => {
   ev.data.payload === 'removeLoading' && removeLoading()
 }
 
@@ -99,8 +99,16 @@ contextBridge.exposeInMainWorld("electron", {
   selectFile: () => {
     ipcRenderer.send("select-file");
   },
-  selectFileComplete: (handler: (filePath: string) => void) => {
+  selectFileCompleted: (handler: (filePath: string) => void) => {
     ipcRenderer.on("select-file-complete", (e: IpcRendererEvent, ...args: any[]) => {
+      handler(args[0])
+    })
+  },
+  selectImage: () => {
+    ipcRenderer.send("select-image");
+  },
+  selectImageCompleted: (handler: (base64Image: string) => void) => {
+    ipcRenderer.on("select-image-complete", (e: IpcRendererEvent, ...args: any[]) => {
       handler(args[0])
     })
   }

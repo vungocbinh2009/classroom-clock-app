@@ -31,7 +31,7 @@ let selectFile = () => {
 }
 
 onMounted(() => {
-    window.electron.selectFileComplete((filePath: string) => {
+    window.electron.selectFileCompleted((filePath: string) => {
         settingsStore.selectedFilePath = filePath
     })
 })

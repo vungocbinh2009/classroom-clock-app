@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router';
 import Timer from "easytimer.js";
 import { onMounted, ref } from 'vue';
 import { displayTime } from '../utils/timer';
+import InputText from 'primevue/inputtext';
 
 let settingsStore = useSettingsStore()
 
@@ -39,12 +40,16 @@ let returnToSettings = () => {
     router.back()
 }
 
+let title = settingsStore.title
+
+let nextTitle = settingsStore.nextTitle
+
 let displayTimeString = ref("")
 
 </script>
 
 <template>
-    <h1 class="text-center">{{settingsStore.title}}</h1>
+    <InputText type="text" class="p-inputtext-lg text-center" v-model="title" />
 
     <div class="timer">
         <div>
@@ -52,7 +57,7 @@ let displayTimeString = ref("")
         </div>
     </div>
 
-    <h2 class="text-center">{{settingsStore.nextTitle}}</h2>
+    <InputText type="text" class="p-inputtext-lg text-center" v-model="nextTitle" />
 
     <div class="start-button-div">
         <Button class="start-button p-button-link" label="Quay lại" @click="returnToSettings()" />
@@ -84,5 +89,7 @@ let displayTimeString = ref("")
 
 .text-center {
     text-align: center;
+    width: 100%;
+    font-weight: bold;
 }
 </style>

@@ -46,8 +46,7 @@ async function createWindow() {
     webPreferences: {
       preload,
       nodeIntegration: false,
-      contextIsolation: true,
-      webSecurity: false
+      contextIsolation: true
     },
   })
 
