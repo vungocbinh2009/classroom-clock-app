@@ -37,8 +37,8 @@
   "snap": {
     "summary": "A simple pdf viewer with clock and randomizer",
     "title": "Classroom clock app",
-    "compression": "lzo"
-  }
+    "compression": "xz"
+  },
   "nsis": {
     "oneClick": false,
     "perMachine": false,
