@@ -71,6 +71,7 @@ onMounted(() => {
         type="text" v-model="settingsStore.nextTitle" />
 
     <br />
+
     <h5 />
     <div class="start-button-div">
         <Button class="start-button" label="Bắt đầu" @click="startClock()" />

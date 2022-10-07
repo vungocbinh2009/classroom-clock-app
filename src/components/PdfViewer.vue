@@ -14,7 +14,7 @@ let props = defineProps<{
 
 let getFilePath = computed(() => {
     if (props.fileName !== '') {
-        return props.path + '?file://file://' + props.fileName
+        return props.path + '?file=' + props.fileName
     }
     return props.path
 })

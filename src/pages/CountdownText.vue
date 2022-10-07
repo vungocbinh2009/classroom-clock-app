@@ -7,8 +7,10 @@ import { useRouter } from 'vue-router';
 import ContextMenu from 'primevue/contextmenu';
 import { MenuItem, MenuItemCommandEvent } from "primevue/menuitem";
 import Tiptap from '../components/Tiptap.vue'
-import InputText from 'primevue/inputtext';
 import TimerDialog from '../components/TimerDialog.vue';
+import TitleDialog from '../components/TitleDialog.vue'
+import RandomNumberDialog from '../components/RandomNumberDialog.vue'
+
 
 let settingsStore = useSettingsStore()
 
@@ -50,12 +52,20 @@ settingsStore.$subscribe((mutation, state) => {
 })
 
 let displayTimerDialog = ref(false)
+let displayTitleDialog = ref(false)
+let displayRandomNumberDialog = ref(false)
 
 let contextMenuItem: Array<MenuItem> = [
     {
         label: "Quay lại",
         command: (event: MenuItemCommandEvent) => { 
             router.back()
+        },
+    },
+    {
+        label: "Chỉnh sửa tiêu đề",
+        command: (event: MenuItemCommandEvent) => {
+            displayTitleDialog.value = true
         },
     },
     {
@@ -72,6 +82,12 @@ let contextMenuItem: Array<MenuItem> = [
         label: "Đặt lại đồng hồ",
         command: (event: MenuItemCommandEvent) => {
             displayTimerDialog.value = true
+        },
+    },
+    {
+        label: "Chọn số ngẫu nhiên",
+        command: (event: MenuItemCommandEvent) => {
+            displayRandomNumberDialog.value = true
         },
     },
 ];
@@ -91,8 +107,8 @@ let displayTimeString = ref("")
 <template>
     <div class="container">
         <tiptap class="content" />
-        <div @contextmenu="showContextMenu">
-            <InputText type="text" class="p-inputtext-lg title-input title" v-model="title" />
+        <div class="title-input" @contextmenu="showContextMenu">
+            <h1>{{title}}</h1>
         </div>
         <div class="clock" @contextmenu="showContextMenu">
             <div>
@@ -101,6 +117,8 @@ let displayTimeString = ref("")
         </div>
         <ContextMenu ref="contextMenu" :model="contextMenuItem" />
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false" />
+        <TitleDialog :display="displayTitleDialog" @closeDialog="displayTitleDialog = false" />
+        <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
     </div>
 </template>
 
@@ -113,11 +131,12 @@ let displayTimeString = ref("")
     grid-template-areas:
         "content content"
         "title clock";
+    overflow-y: hidden;
 }
 
 .content {
     grid-area: content;
-    height: 86vh
+    height: 90vh
 }
 
 .title {

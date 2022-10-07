@@ -7,8 +7,9 @@ import { useRouter } from 'vue-router';
 import PdfViewer from '../components/PdfViewer.vue'
 import ContextMenu from 'primevue/contextmenu';
 import { MenuItem, MenuItemCommandEvent } from 'primevue/menuitem';
-import InputText from 'primevue/inputtext';
 import TimerDialog from '../components/TimerDialog.vue';
+import TitleDialog from '../components/TitleDialog.vue'
+import RandomNumberDialog from '../components/RandomNumberDialog.vue'
 
 
 let settingsStore = useSettingsStore()
@@ -51,12 +52,21 @@ settingsStore.$subscribe((mutation, state) => {
 })
 
 let displayTimerDialog = ref(false)
+let displayTitleDialog = ref(false)
+let displayRandomNumberDialog = ref(false)
+
 
 let contextMenuItem: Array<MenuItem> = [
     {
         label: "Quay lại",
         command: (event: MenuItemCommandEvent) => {
             router.back()
+        },
+    },
+    {
+        label: "Chỉnh sửa tiêu đề",
+        command: (event: MenuItemCommandEvent) => {
+            displayTitleDialog.value = true
         },
     },
     {
@@ -75,6 +85,12 @@ let contextMenuItem: Array<MenuItem> = [
             displayTimerDialog.value = true
         },
     },
+    {
+        label: "Chọn số ngẫu nhiên",
+        command: (event: MenuItemCommandEvent) => {
+            displayRandomNumberDialog.value = true
+        },
+    },
 ];
 
 let contextMenu: any = ref()
@@ -87,8 +103,6 @@ let displayTimeString = ref("")
 
 let path = 'web/viewer.html'
 let fileName = settingsStore.selectedFilePath
-
-let title = settingsStore.title
 </script>
 
 <template>
@@ -96,8 +110,8 @@ let title = settingsStore.title
         <div class="content" >
             <PdfViewer class="pdf-viewer" :path="path" :fileName="fileName" />
         </div>
-        <div class="title" @contextmenu="showContextMenu">
-            <InputText type="text" class="p-inputtext-lg title-input" v-model="title" />
+        <div class="title-input" @contextmenu="showContextMenu">
+            <h1>{{settingsStore.title}}</h1>
         </div>
         <div class="clock" @contextmenu="showContextMenu">
             <div>
@@ -106,6 +120,8 @@ let title = settingsStore.title
         </div>
         <ContextMenu ref="contextMenu" :model="contextMenuItem" />
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>
+        <TitleDialog :display="displayTitleDialog" @closeDialog="displayTitleDialog = false" />
+        <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
     </div>
 </template>
 
@@ -118,6 +134,7 @@ let title = settingsStore.title
     grid-template-areas:
         "content content"
         "title clock";
+    overflow-y: hidden;
 }
 
 .content {
@@ -155,5 +172,6 @@ let title = settingsStore.title
     height: 100%;
     font-weight: bold;
     background-color: #FFE9A0;
+    padding-left: 20px;
 }
 </style>

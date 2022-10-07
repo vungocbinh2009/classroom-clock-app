@@ -32,15 +32,13 @@ let updateTime = () => {
 </script>
 
 <template>
-    <Dialog header="Header" v-model:visible="props.display">
-        Nhập thời gian vào ô dưới đây:
-        <br/>
+    <Dialog header="Nhập thời gian" v-model:visible="props.display" :showHeader="true" position="bottom">
         <InputNumber inputId="hours" placeholder="Hours" showButtons v-model="inputHours" />
         <InputNumber inputId="minutes" placeholder="Minutes" showButtons v-model="inputMinutes" />
         <InputNumber inputId="seconds" placeholder="Seconds" showButtons v-model="inputSeconds" />
 
         <template #footer>
-            <Button label="Update" class="p-button-text" @click="updateTime()" />
+            <Button label="Cập nhật" class="p-button-text" @click="updateTime()" />
         </template>
     </Dialog>
 

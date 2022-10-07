@@ -49,8 +49,10 @@ async function createWindow() {
       contextIsolation: true
     },
   })
+  win.maximize()
 
   if (app.isPackaged) {
+    win.removeMenu();
     win.loadFile(indexHtml)
   } else {
     win.loadURL(url)
