@@ -15,7 +15,7 @@ let emits = defineEmits<{
 
 let settingsStore = useSettingsStore()
 
-let inputTitle = ref("")
+let inputTitle = ref(settingsStore.title)
 
 let updateTitle = () => {
     settingsStore.$patch({

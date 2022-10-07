@@ -22,7 +22,7 @@ let getFilePath = computed(() => {
 <style scoped>
 div {
     width: 100%;
-    height: 79vh;
+    height: 100%;
     min-width: 400px;
 }
 </style>

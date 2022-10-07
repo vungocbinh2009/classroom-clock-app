@@ -4,6 +4,7 @@ import PrimeVue from "primevue/config"
 import { router } from './plugins/router'
 import { createPinia } from "pinia";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import ToastService from "primevue/toastservice";
 
 import "primevue/resources/themes/saga-blue/theme.css";
 import "primevue/resources/primevue.min.css";
@@ -16,6 +17,7 @@ addAllIcons()
 
 createApp(App)
   .use(PrimeVue)
+  .use(ToastService)
   .use(router)
   .use(pinia)
   .component("font-awesome-icon", FontAwesomeIcon)

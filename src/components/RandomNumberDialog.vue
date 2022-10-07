@@ -31,11 +31,13 @@ let closeDialog = () => {
 
 <template>
     <Dialog header="Chọn số ngẫu nhiên" v-model:visible="props.display" :showHeader="true" position="center">
+        <label for="start">Bắt đầu: </label>
         <InputNumber inputId="start" placeholder="Bắt đầu" showButtons v-model="start" />
+        <label for="finish"> Kết thúc: </label>
         <InputNumber inputId="finish" placeholder="Kết thúc" showButtons v-model="finish" />
 
         <h3 class="text-center">Kết quả</h3>
-        <h1 class="text-center">{{randomNumber}}</h1>
+        <h1 class="text-center random-number">{{randomNumber}}</h1>
 
         <template #footer>
             <Button label="Lấy ngẫu nhiên" class="p-button-text" @click="getRandomNumber()" />
@@ -49,5 +51,9 @@ let closeDialog = () => {
 <style scoped>
 .text-center {
     text-align: center;
+}
+
+.random-number {
+    font-size: 70px;
 }
 </style>
