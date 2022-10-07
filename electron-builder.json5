@@ -35,7 +35,9 @@
     "icon": "./build/icon.png"
   },
   "snap": {
-    
+    "summary": "A simple pdf viewer with clock and randomizer",
+    "title": "Classroom clock app",
+    "compression": "lzo"
   }
   "nsis": {
     "oneClick": false,
