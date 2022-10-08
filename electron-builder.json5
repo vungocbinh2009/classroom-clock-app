@@ -30,14 +30,15 @@
   "linux": {
     "target": [
       "snap",
-      "AppImage"
+      "AppImage",
+      "deb"
     ],
-    "icon": "./build/icon.png"
+    "artifactName": "${productName}_${version}.${ext}"
   },
   "snap": {
     "summary": "A simple pdf viewer with clock and randomizer",
     "title": "Classroom clock app",
-    "compression": "xz"
+    "compression": null
   },
   "nsis": {
     "oneClick": false,

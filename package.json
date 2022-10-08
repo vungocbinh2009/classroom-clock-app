@@ -2,8 +2,8 @@
   "name": "classroom-clock-app",
   "version": "1.1.0",
   "main": "dist/electron/main/index.js",
-  "description": "Really simple Electron + Vue + Vite boilerplate.",
-  "author": "Vũ Ngọc Bình",
+  "description": "A simple text editor and PDF viewer with clock and RNG",
+  "author": "Vũ Ngọc Bình <vungocbinh@protonmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
