@@ -7,7 +7,9 @@ A simple text editor and PDF viewer with countdown clock and random number gener
 - Countdown with text editor.
 
 # Download.
-- You can download .AppImage and .deb file in Release. This app also have snap package on Snapcraft
+- You can download .AppImage and .deb file in [Release](https://github.com/vungocbinh2009/classroom-clock-app/releases). This app also have snap package on Snapcraft
+
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/classroom-clock-app)
 
 # Screenshot.
 ![Settings](/screenshot/Screenshot%201.png)
@@ -19,5 +21,5 @@ A simple text editor and PDF viewer with countdown clock and random number gener
 Apache License 2.0 (http://www.apache.org/licenses/)
 
 # Donate
-If you find this project useful, you can donate through Flattr [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/@vungocbinh)
+If you find this project useful, you can donate through Flattr: [Flattr link](https://flattr.com/@vungocbinh)
 
