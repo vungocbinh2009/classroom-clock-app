@@ -16,6 +16,7 @@ import { app, BrowserWindow, shell, ipcMain, protocol } from 'electron'
 import { release } from 'os'
 import { join } from 'path'
 import { setupIpcMain } from './ipcMain'
+import urlModule from 'url'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -27,6 +28,13 @@ if (!app.requestSingleInstanceLock()) {
   app.quit()
   process.exit(0)
 }
+
+protocol.registerSchemesAsPrivileged([
+  {
+    scheme: "file",
+    privileges: { secure: true, standard: true, bypassCSP: true,  },
+  }
+])
 
 // Remove electron security warnings
 // This warning only shows in development mode
@@ -49,6 +57,14 @@ async function createWindow() {
       contextIsolation: true
     },
   })
+
+  protocol.registerFileProtocol("atom", (request, callback) => {
+    const filePath = urlModule.fileURLToPath(
+      "file://" + request.url.slice("atom://".length)
+    );
+    callback(filePath);
+  });
+
   win.maximize()
 
   if (app.isPackaged) {

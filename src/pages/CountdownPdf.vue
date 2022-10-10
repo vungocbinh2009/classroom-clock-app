@@ -5,6 +5,7 @@ import { displayTime } from '../utils/timer';
 import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import PdfViewer from '../components/PdfViewer.vue'
+import ModernPdfViewer from '../components/ModernPdfViewer.vue'
 import ContextMenu from 'primevue/contextmenu';
 import { MenuItem, MenuItemCommandEvent } from 'primevue/menuitem';
 import TimerDialog from '../components/TimerDialog.vue';
@@ -119,7 +120,7 @@ let fileName = settingsStore.selectedFilePath
 <template>
     <div >
         <div @contextmenu="showContextMenu" class="pdf-viewer" >
-            <PdfViewer :path="path" :fileName="fileName" />
+            <ModernPdfViewer/>
         </div>
         <ContextMenu :global="true" ref="contextMenu" :model="contextMenuItem" />
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>
