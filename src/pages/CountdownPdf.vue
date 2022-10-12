@@ -13,6 +13,7 @@ import TitleDialog from '../components/TitleDialog.vue'
 import RandomNumberDialog from '../components/RandomNumberDialog.vue'
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
+import Message from 'primevue/message';
 
 
 let settingsStore = useSettingsStore()
@@ -61,7 +62,7 @@ let displayTimeString = ref("")
 let toast = useToast();
 
 let showClockAndTitle = () => {
-    toast.add({ severity: 'info', group: 'tr' });
+    toast.add({ severity: 'info', group: 'tr', styleClass: "toast-box" });
 }
 
 let contextMenuItem: Array<MenuItem> = [
@@ -113,6 +114,7 @@ let showContextMenu = (event: Event) => {
     contextMenu.value.show(event)
 }
 
+// Giữ lại để sử dụng pdfViewer mặc định của pdfjs
 let path = 'web/viewer.html'
 let fileName = settingsStore.selectedFilePath
 </script>
@@ -120,20 +122,22 @@ let fileName = settingsStore.selectedFilePath
 <template>
     <div >
         <div @contextmenu="showContextMenu" class="pdf-viewer" >
-            <ModernPdfViewer/>
+            <PdfViewer :path="path" :fileName="fileName"/>
+            <!-- <ModernPdfViewer/> -->
         </div>
         <ContextMenu :global="true" ref="contextMenu" :model="contextMenuItem" />
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>
         <TitleDialog :display="displayTitleDialog" @closeDialog="displayTitleDialog = false" />
         <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
         <Toast position="top-right" group="tr">
-            <template #message="slotProps">
-                <div class="toast-message text-center">
+            <template class="toast-box" #message="slotProps">
+                <div class="toast-message text-center toast-box" >
                     <h1>{{displayTimeString}}</h1>
                     <h3>{{settingsStore.title}}</h3>
                 </div>
             </template>
         </Toast>
+        <Message class="message" severity="info">{{displayTimeString}} - {{settingsStore.title}}</Message>
     </div>
 </template>
 
@@ -144,10 +148,20 @@ let fileName = settingsStore.selectedFilePath
 }
 
 .toast-message {
-    width: 100%
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
 }
 
-.text-center {
-    text-align: center;
+.toast-box {
+    margin: 0px;
+    padding: 0px;
+}
+
+.message {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    right: 20px;
 }
 </style>

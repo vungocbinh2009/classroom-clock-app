@@ -31,7 +31,7 @@ onMounted(() => {
 })
 
 let renderPdf = () => {
-    pdfjsLib.getDocument(pdfUrl.value).promise.then(function (pdf) {
+    pdfjsLib.getDocument(pdfUrl.value).promise.then(function (pdf: pdfjsLib.PDFDocumentProxy) {
         //Set PDFJS global object (so we can easily access in our page functions
         pdfFile = pdf;
 
