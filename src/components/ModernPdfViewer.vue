@@ -16,21 +16,19 @@ let pdfUrl = ref('atom:///home/binh/Documents/Tài liệu cao học/Học máy v
 
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
 
-let currPageRender = ref(1); //Pages are 1-based not 0-based
+//Pages are 1-based not 0-based
 let currPageView = ref(1)
 let numPages = ref(0);
 let pdfFile: pdfjsLib.PDFDocumentProxy | null = null;
+let pdfPreview = ref<HTMLElement | null>(null)
 let pdfViewer = ref<HTMLElement | null>(null)
 let scalePercent = ref(100)
+let sideBarVisible = ref(false)
 let scale = computed(() => {
     return scalePercent.value / 100
 })
 
-onMounted(() => {
-    renderPdf()
-})
-
-let renderPdf = () => {
+let renderPdf = (scale: number, element: HTMLElement) => {
     pdfjsLib.getDocument(pdfUrl.value).promise.then(function (pdf) {
         //Set PDFJS global object (so we can easily access in our page functions
         pdfFile = pdf;
@@ -40,22 +38,12 @@ let renderPdf = () => {
 
         //Start with first page
         pdf.getPage(1).then((page: pdfjsLib.PDFPageProxy) => {
-            handlePages(page, scale.value)
+            handlePages(1, page, scale, element)
         })
     });
 }
 
-watch(scale, (value) => {
-    pdfViewer.value!!.innerHTML = ""
-    currPageRender.value = 1
-    renderPdf()
-})
-
-let pdfFileName = computed(() => {
-    return pdfUrl.value.split('\\').pop()!!.split('/').pop();
-})
-
-let handlePages = (page: pdfjsLib.PDFPageProxy, scale: number) => {
+let handlePages = (pageNumber: number, page: pdfjsLib.PDFPageProxy, scale: number, element: HTMLElement) => {
     //This gives us the page's dimensions at full scale
     let viewport = page.getViewport({ scale: scale });
 
@@ -71,21 +59,37 @@ let handlePages = (page: pdfjsLib.PDFPageProxy, scale: number) => {
     page.render({ canvasContext: context, viewport: viewport });
 
     //Add it to the web page
-    pdfViewer.value!!.appendChild(canvas);
+    element.appendChild(canvas);
 
     var line = document.createElement("hr");
-    pdfViewer.value!!.appendChild(line);
+    element.appendChild(line);
 
     //Move to next page
-    currPageRender.value++;
-    if (pdfFile !== null && currPageRender.value <= numPages.value) {
-        pdfFile.getPage(currPageRender.value).then((page: pdfjsLib.PDFPageProxy) => {
-            handlePages(page, scale)
+    if (pdfFile !== null && pageNumber + 1 <= numPages.value) {
+        pdfFile.getPage(pageNumber + 1).then((page: pdfjsLib.PDFPageProxy) => {
+            handlePages(pageNumber + 1, page, scale, element)
         });
     }
 }
 
-let sideBarVisible = ref(false)
+watch(scale, (value) => {
+    pdfViewer.value!!.innerHTML = ""
+    renderPdf(value, pdfViewer.value!!)
+})
+
+watch(sideBarVisible, (value) => {
+    // Render to preview
+    renderPdf(0.1, pdfPreview.value!!)
+})
+
+let pdfFileName = computed(() => {
+    return pdfUrl.value.split('\\').pop()!!.split('/').pop();
+})
+
+onMounted(() => {
+    // Render to view
+    renderPdf(scale.value, pdfViewer.value!!)
+})
 
 let zoomIn = () => {
     scalePercent.value += 10
@@ -125,7 +129,7 @@ let zoomOut = () => {
         </Toolbar>
 
         <Sidebar v-model:visible="sideBarVisible">
-            Content
+            <div ref="pdfPreview"></div>
         </Sidebar>
         <div class="pdf-viewer" ref="pdfViewer"></div>
     </div>
