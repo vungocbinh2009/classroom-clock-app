@@ -11,8 +11,7 @@ import { MenuItem, MenuItemCommandEvent } from 'primevue/menuitem';
 import TimerDialog from '../components/TimerDialog.vue';
 import TitleDialog from '../components/TitleDialog.vue'
 import RandomNumberDialog from '../components/RandomNumberDialog.vue'
-import Toast from 'primevue/toast';
-import { useToast } from "primevue/usetoast";
+import Message from 'primevue/message';
 
 
 let settingsStore = useSettingsStore()
@@ -58,11 +57,7 @@ let displayTimerDialog = ref(false)
 let displayTitleDialog = ref(false)
 let displayRandomNumberDialog = ref(false)
 let displayTimeString = ref("")
-let toast = useToast();
-
-let showClockAndTitle = () => {
-    toast.add({ severity: 'info', group: 'tr' });
-}
+let showMessage = ref(false)
 
 let contextMenuItem: Array<MenuItem> = [
     {
@@ -102,7 +97,7 @@ let contextMenuItem: Array<MenuItem> = [
     {
         label: "Hiển thị đồng hồ",
         command: (event: MenuItemCommandEvent) => {
-            showClockAndTitle()
+            showMessage.value = true
         },
     },
 ];
@@ -120,20 +115,15 @@ let fileName = settingsStore.selectedFilePath
 <template>
     <div >
         <div @contextmenu="showContextMenu" class="pdf-viewer" >
-            <ModernPdfViewer/>
+            <PdfViewer :path="path" :fileName="fileName"/>
         </div>
         <ContextMenu :global="true" ref="contextMenu" :model="contextMenuItem" />
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>
         <TitleDialog :display="displayTitleDialog" @closeDialog="displayTitleDialog = false" />
         <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
-        <Toast position="top-right" group="tr">
-            <template #message="slotProps">
-                <div class="toast-message text-center">
-                    <h1>{{displayTimeString}}</h1>
-                    <h3>{{settingsStore.title}}</h3>
-                </div>
-            </template>
-        </Toast>
+        <Message class="message p-message" v-show="showMessage" @close="showMessage = false">
+            <h1 class="message-text">{{displayTimeString}} - {{settingsStore.title}}</h1>
+        </Message>
     </div>
 </template>
 
@@ -143,11 +133,13 @@ let fileName = settingsStore.selectedFilePath
     height: 96vh;
 }
 
-.toast-message {
-    width: 100%
+.message {
+    position: fixed;
+    top: 25px;
+    right: 25px;
 }
 
-.text-center {
-    text-align: center;
+.message-text {
+    margin: 0px;
 }
 </style>
