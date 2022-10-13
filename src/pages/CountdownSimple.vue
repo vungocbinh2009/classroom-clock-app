@@ -1,39 +1,17 @@
 <script lang="ts" setup>
-import { useSettingsStore } from '../plugins/pinia';
+import { useSettingsStore, useTimerStore } from '../plugins/pinia';
 import Button from 'primevue/button'
 import { useRouter } from 'vue-router';
-import Timer from "easytimer.js";
-import { onMounted, ref } from 'vue';
-import { displayTime } from '../utils/timer';
+import { onMounted } from 'vue';
 import InputText from 'primevue/inputtext';
 
 let settingsStore = useSettingsStore()
+let timerStore = useTimerStore()
 
 let router = useRouter()
 
-let timer = new Timer();
-
 onMounted(() => {
-    timer.start(
-        {
-            countdown: true,
-            startValues: { seconds: settingsStore.totalTimeSeconds },
-        }
-    );
-    displayTimeString.value = displayTime(
-        timer.getTimeValues().hours,
-        timer.getTimeValues().minutes,
-        timer.getTimeValues().seconds,
-        timer.getTotalTimeValues().seconds
-    )
-    timer.addEventListener("secondsUpdated", function (e) {
-        displayTimeString.value = displayTime(
-            timer.getTimeValues().hours,
-            timer.getTimeValues().minutes,
-            timer.getTimeValues().seconds,
-            timer.getTotalTimeValues().seconds
-        )
-    });
+    timerStore.startTimer()
 })
 
 let returnToSettings = () => {
@@ -44,8 +22,6 @@ let title = settingsStore.title
 
 let nextTitle = settingsStore.nextTitle
 
-let displayTimeString = ref("")
-
 </script>
 
 <template>
@@ -53,7 +29,7 @@ let displayTimeString = ref("")
 
     <div class="timer">
         <div>
-            <h1 class="timer-text">{{displayTimeString}}</h1>
+            <h1 class="timer-text">{{timerStore.displayTimeString}}</h1>
         </div>
     </div>
 

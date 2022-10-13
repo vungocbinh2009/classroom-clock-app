@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import { Timer} from 'easytimer.js';
-import { useSettingsStore } from '../plugins/pinia';
-import { displayTime } from '../utils/timer';
-import { onMounted, ref, watch } from 'vue';
+import { useSettingsStore, useTimerStore } from '../plugins/pinia';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import ContextMenu from 'primevue/contextmenu';
 import { MenuItem, MenuItemCommandEvent } from "primevue/menuitem";
@@ -10,59 +8,22 @@ import Tiptap from '../components/Tiptap.vue'
 import TimerDialog from '../components/TimerDialog.vue';
 import TitleDialog from '../components/TitleDialog.vue'
 import RandomNumberDialog from '../components/RandomNumberDialog.vue'
-import Toast from 'primevue/toast';
-import { useToast } from "primevue/usetoast";
+import Message from 'primevue/message';
 
 
 let settingsStore = useSettingsStore()
+let timerStore = useTimerStore()
 
 let router = useRouter()
 
-let timer = new Timer();
-
 onMounted(() => {
-    timer.start(
-        {
-            countdown: true,
-            startValues: { seconds: settingsStore.totalTimeSeconds },
-        }
-    );
-    displayTimeString.value = displayTime(
-        timer.getTimeValues().hours,
-        timer.getTimeValues().minutes,
-        timer.getTimeValues().seconds,
-        timer.getTotalTimeValues().seconds
-    )
-    timer.addEventListener("secondsUpdated", function (e) {
-        displayTimeString.value = displayTime(
-            timer.getTimeValues().hours,
-            timer.getTimeValues().minutes,
-            timer.getTimeValues().seconds,
-            timer.getTotalTimeValues().seconds
-        )
-    });
+    timerStore.startTimer()
 })
-
-watch(() => settingsStore.totalTimeSeconds, (newTime: number) => {
-    timer.stop()
-    timer.start(
-        {
-            countdown: true,
-            startValues: { seconds: newTime },
-        }
-    );
-})
-
-
 
 let displayTimerDialog = ref(false)
 let displayTitleDialog = ref(false)
 let displayRandomNumberDialog = ref(false)
-let toast = useToast()
-
-let showClockAndTitle = () => {
-    toast.add({ severity: 'info', group: 'tr' });
-}
+let showMessage = ref(false)
 
 let contextMenuItem: Array<MenuItem> = [
     {
@@ -80,11 +41,7 @@ let contextMenuItem: Array<MenuItem> = [
     {
         label: "Dừng/tiếp tục đồng hồ",
         command: (event: MenuItemCommandEvent) => {
-            if (timer.isPaused()) {
-                timer.start()
-            } else {
-                timer.pause()
-            }
+            timerStore.pauseOrContinueTimer()
         },
     },
     {
@@ -102,7 +59,7 @@ let contextMenuItem: Array<MenuItem> = [
     {
         label: "Hiển thị đồng hồ",
         command: (event: MenuItemCommandEvent) => {
-            showClockAndTitle()
+            showMessage.value = true
         },
     },
 ];
@@ -113,8 +70,6 @@ let showContextMenu = (event: Event) => {
     contextMenu.value.show(event)
 }
 
-let displayTimeString = ref("")
-
 </script>
 
 <template>
@@ -124,14 +79,9 @@ let displayTimeString = ref("")
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false" />
         <TitleDialog :display="displayTitleDialog" @closeDialog="displayTitleDialog = false" />
         <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
-        <Toast position="top-right" group="tr">
-            <template #message="slotProps">
-                <div class="toast-message text-center">
-                    <h1>{{displayTimeString}}</h1>
-                    <h3>{{settingsStore.title}}</h3>
-                </div>
-            </template>
-        </Toast>
+        <Message class="message" v-show="showMessage" @close="showMessage = false">
+            <h1 class="message-text">{{timerStore.displayTimeString}} - {{settingsStore.title}}</h1>
+        </Message>
     </div>
 </template>
 
@@ -141,11 +91,13 @@ let displayTimeString = ref("")
     height: 90vh;
 }
 
-.toast-message {
-    width: 100%
+.message {
+    position: fixed;
+    top: 0px;
+    right: 25px;
 }
 
-.text-center {
-    text-align: center;
+.message-text {
+    margin: 0px;
 }
 </style>

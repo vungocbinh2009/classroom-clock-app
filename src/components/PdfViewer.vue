@@ -7,16 +7,15 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
 
-let props = defineProps<{
-    fileName: string,
-    path: string
-}>()
+let path = 'web/viewer.html'
+
+let fileName = ""
 
 let getFilePath = computed(() => {
-    if (props.fileName !== '') {
-        return props.path + '?file=' + props.fileName
+    if (fileName !== '') {
+        return path + '?file=' + fileName
     }
-    return props.path
+    return path
 })
 </script>
 <style scoped>

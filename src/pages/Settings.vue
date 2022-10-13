@@ -3,12 +3,13 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import InputNumber from 'primevue/inputnumber'
 import Dropdown from 'primevue/dropdown'
-import { useSettingsStore } from '../plugins/pinia'
+import { useSettingsStore, useTimerStore } from '../plugins/pinia'
 import { useRouter } from 'vue-router'
 import { CountdownMode } from '../utils/enum'
 import { onMounted } from 'vue'
 
 let settingsStore = useSettingsStore()
+let timerStore = useTimerStore()
 let router = useRouter()
 
 let startClock = () => {
@@ -52,15 +53,15 @@ onMounted(() => {
     <div class="time-container">
         <div>
             <label for="hours">Giờ: </label>
-            <InputNumber inputId="hours" showButtons v-model="settingsStore.inputTime.hours" />
+            <InputNumber inputId="hours" showButtons v-model="timerStore.inputTime.hours" />
         </div>
         <div>
             <label for="minutes">Phút: </label>
-            <InputNumber inputId="minutes" showButtons v-model="settingsStore.inputTime.minutes" />
+            <InputNumber inputId="minutes" showButtons v-model="timerStore.inputTime.minutes" />
         </div>
         <div>
             <label for="seconds">Giây: </label>
-            <InputNumber inputId="seconds" showButtons v-model="settingsStore.inputTime.seconds" />
+            <InputNumber inputId="seconds" showButtons v-model="timerStore.inputTime.seconds" />
         </div>
     </div>
 

@@ -2,7 +2,7 @@
 import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
 import InputNumber from 'primevue/inputnumber';
-import { useSettingsStore } from '../plugins/pinia';
+import {useTimerStore } from '../plugins/pinia';
 import { ref } from 'vue';
 
 let props = defineProps<{
@@ -13,20 +13,22 @@ let emits = defineEmits<{
     (e: 'closeDialog'): void
 }>()
 
-let settingsStore = useSettingsStore()
+let timerStore = useTimerStore()
 
 let inputHours = ref(0)
 let inputMinutes = ref(0)
 let inputSeconds = ref(0)
 
 let updateTime = () => {
-    settingsStore.$patch({
+    timerStore.$patch({
         inputTime: {
             hours: inputHours.value,
             minutes: inputMinutes.value,
             seconds: inputSeconds.value
         }
     })
+    timerStore.stopTimer()
+    timerStore.startTimer()
     emits('closeDialog')
 }
 </script>
