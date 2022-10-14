@@ -3,6 +3,7 @@ import { useSettingsStore, useTimerStore } from '../plugins/pinia';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import PdfViewer from '../components/PdfViewer.vue'
+import ExpressJsPdfViewer from '../components/ExpressJsPdfViewer.vue'
 import ContextMenu from 'primevue/contextmenu';
 import { MenuItem, MenuItemCommandEvent } from 'primevue/menuitem';
 import TimerDialog from '../components/TimerDialog.vue';
@@ -76,7 +77,7 @@ let showContextMenu = (event: Event) => {
 <template>
     <div >
         <div @contextmenu="showContextMenu" class="pdf-viewer" >
-            <PdfViewer/>
+            <ExpressJsPdfViewer/>
         </div>
         <ContextMenu :global="true" ref="contextMenu" :model="contextMenuItem" />
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>

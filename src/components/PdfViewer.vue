@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
 
-let path = 'web/viewer.html'
+let path = 'pdfjs/web/viewer.html'
 
 let fileName = ""
 
