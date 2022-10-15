@@ -10,6 +10,7 @@ import {
     faQuoteLeft, faRotateLeft, faRotateRight, faImage, faBars,
     faMagnifyingGlassPlus,
     faMagnifyingGlassMinus, 
+    faEllipsisVertical
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
@@ -31,6 +32,7 @@ export let addAllIcons = () => {
         faImage,
         faBars,
         faMagnifyingGlassPlus,
-        faMagnifyingGlassMinus
+        faMagnifyingGlassMinus,
+        faEllipsisVertical
     );
 }

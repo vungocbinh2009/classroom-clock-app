@@ -7,6 +7,10 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
 
+let emits = defineEmits<{
+    (e: "contextmenu", event: Event): void
+}>()
+
 let path = 'pdfjs/web/viewer.html'
 
 let fileName = ""
@@ -17,6 +21,10 @@ let getFilePath = computed(() => {
     }
     return path
 })
+/**
+ * Lưu ý về vị trí thay đổi màu trên giao diện pdfjs
+ * - Màu sắc thanh toolbar: Tìm dòng --toolbar-bg-color:
+ */
 </script>
 <style scoped>
 div {

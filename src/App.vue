@@ -9,7 +9,7 @@
 <style>
 body {
     font-family: "Roboto";
+    margin: 0px;
+    /* Màu của ứng dụng */
 }
-
-
 </style>

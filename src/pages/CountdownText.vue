@@ -9,7 +9,8 @@ import TimerDialog from '../components/TimerDialog.vue';
 import TitleDialog from '../components/TitleDialog.vue'
 import RandomNumberDialog from '../components/RandomNumberDialog.vue'
 import Message from 'primevue/message';
-
+import Menu from 'primevue/menu';
+import Button from 'primevue/button';
 
 let settingsStore = useSettingsStore()
 let timerStore = useTimerStore()
@@ -25,7 +26,7 @@ let displayTitleDialog = ref(false)
 let displayRandomNumberDialog = ref(false)
 let showMessage = ref(false)
 
-let contextMenuItem: Array<MenuItem> = [
+let menuItem: Array<MenuItem> = [
     {
         label: "Quay lại",
         command: (event: MenuItemCommandEvent) => { 
@@ -64,18 +65,19 @@ let contextMenuItem: Array<MenuItem> = [
     },
 ];
 
-let contextMenu: any = ref()
+let optionMenu: any = ref()
 
-let showContextMenu = (event: Event) => {
-    contextMenu.value.show(event)
+let showOptionMenu = (event: Event) => {
+    optionMenu.value.toggle(event)
 }
 
 </script>
 
 <template>
     <div>
-        <tiptap class="text-editor" @contextmenu="showContextMenu"/>
-        <ContextMenu :global="true" ref="contextMenu" :model="contextMenuItem" />
+        <tiptap class="text-editor"/>
+        <Button icon="pi pi-ellipsis-v" class="p-button-rounded options-button" @click="showOptionMenu($event)" />
+        <Menu ref="optionMenu" :model="menuItem" :popup="true" />
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false" />
         <TitleDialog :display="displayTitleDialog" @closeDialog="displayTitleDialog = false" />
         <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
@@ -88,7 +90,8 @@ let showContextMenu = (event: Event) => {
 <style scoped>
 .text-editor {
     width: 100%;
-    height: 90vh;
+    height: 92vh;
+    padding: 10px;
 }
 
 .message {
@@ -99,5 +102,11 @@ let showContextMenu = (event: Event) => {
 
 .message-text {
     margin: 0px;
+}
+
+.options-button {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
 }
 </style>

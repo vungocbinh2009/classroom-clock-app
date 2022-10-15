@@ -5,7 +5,8 @@ import { router } from "./plugins/router";
 import { createPinia } from "pinia";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-import "primevue/resources/themes/saga-blue/theme.css";
+//import "primevue/resources/themes/md-light-deeppurple/theme.css";
+import "./assets/theme.css"
 import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css";
 import "@fontsource/roboto";

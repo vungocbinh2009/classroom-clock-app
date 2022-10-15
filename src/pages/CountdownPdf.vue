@@ -3,13 +3,13 @@ import { useSettingsStore, useTimerStore } from '../plugins/pinia';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import PdfViewer from '../components/PdfViewer.vue'
-import ExpressJsPdfViewer from '../components/ExpressJsPdfViewer.vue'
-import ContextMenu from 'primevue/contextmenu';
+import Menu from 'primevue/menu';
 import { MenuItem, MenuItemCommandEvent } from 'primevue/menuitem';
 import TimerDialog from '../components/TimerDialog.vue';
 import TitleDialog from '../components/TitleDialog.vue'
 import RandomNumberDialog from '../components/RandomNumberDialog.vue'
 import Message from 'primevue/message';
+import Button from 'primevue/button';
 
 
 let settingsStore = useSettingsStore()
@@ -26,7 +26,7 @@ let displayTitleDialog = ref(false)
 let displayRandomNumberDialog = ref(false)
 let showMessage = ref(false)
 
-let contextMenuItem: Array<MenuItem> = [
+let menuItem: Array<MenuItem> = [
     {
         label: "Quay lại",
         command: (event: MenuItemCommandEvent) => {
@@ -65,21 +65,22 @@ let contextMenuItem: Array<MenuItem> = [
     },
 ];
 
-let contextMenu: any = ref()
-let showContextMenu = (event: Event) => {
-    event.preventDefault()
-    contextMenu.value.show(event)
+let optionMenu = ref<Menu | null>()
+let showOptionMenu = (event: Event) => {
+    //event.preventDefault()
+    optionMenu.value?.toggle(event)
 }
 
 
 </script>
 
 <template>
-    <div >
-        <div @contextmenu="showContextMenu" class="pdf-viewer" >
-            <ExpressJsPdfViewer/>
+    <div class="container">
+        <div class="pdf-viewer" >
+            <PdfViewer/>
         </div>
-        <ContextMenu :global="true" ref="contextMenu" :model="contextMenuItem" />
+        <Button icon="pi pi-ellipsis-v" class="p-button-rounded options-button" @click="showOptionMenu($event)"/>
+        <Menu ref="optionMenu" :model="menuItem" :popup="true"/>
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>
         <TitleDialog :display="displayTitleDialog" @closeDialog="displayTitleDialog = false" />
         <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
@@ -90,9 +91,13 @@ let showContextMenu = (event: Event) => {
 </template>
 
 <style scoped>
+.container {
+    background-color: orangered;
+}
 .pdf-viewer {
     width: 100%;
-    height: 96vh;
+    height: 100vh;
+    overflow-y: hidden;
 }
 
 .message {
@@ -103,5 +108,11 @@ let showContextMenu = (event: Event) => {
 
 .message-text {
     margin: 0px;
+}
+
+.options-button {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
 }
 </style>

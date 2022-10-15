@@ -43,7 +43,7 @@ let nextTitle = settingsStore.nextTitle
 <style scoped>
 .timer {
     display: flex;
-    background-color: orangered;
+    background-color: #554994;
     align-items: center;
     justify-content: center;
     width: 100%;

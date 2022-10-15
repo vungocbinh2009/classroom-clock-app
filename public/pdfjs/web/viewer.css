@@ -1008,7 +1008,7 @@
 
 :root {
   --dir-factor: 1;
-  --sidebar-width: 200px;
+  --width: 200px;
   --sidebar-transition-duration: 200ms;
   --sidebar-transition-timing-function: ease;
   --scale-select-container-width: 140px;
@@ -1117,7 +1117,7 @@
 
     --sidebar-narrow-bg-color: rgba(42, 42, 46, 0.9);
     --sidebar-toolbar-bg-color: rgba(50, 50, 52, 1);
-    --toolbar-bg-color: rgba(56, 56, 61, 1);
+    --toolbar-bg-color: #554994; /* Màu toolbar đặt tại đây*/
     --toolbar-border-color: rgba(12, 12, 13, 1);
     --button-hover-color: rgba(102, 102, 103, 1);
     --toggled-btn-color: rgba(255, 255, 255, 1);

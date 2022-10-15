@@ -40,47 +40,51 @@ onMounted(() => {
 </script>
 
 <template>
-    <h1 class="text-center">Cài đặt</h1>
-
-    <h5>Chọn chế độ hiển thị</h5>
-    <Dropdown class="settingDiv" v-model="settingsStore.countdownMode" :options="countDownSelection" optionLabel="name" optionValue="code"
-        placeholder="Chọn chế độ" />
-
-    <h5 for="title">Tiêu đề</h5>
-    <InputText class="settingDiv" id="title" type="text" v-model="settingsStore.title" />
-
-    <h5 for="times">Thời gian</h5>
-    <div class="time-container">
-        <div>
-            <label for="hours">Giờ: </label>
-            <InputNumber inputId="hours" showButtons v-model="timerStore.inputTime.hours" />
+    <div class="container">
+        <h1 class="text-center">Cài đặt</h1>
+        
+        <h5>Chọn chế độ hiển thị</h5>
+        <Dropdown class="settingDiv" v-model="settingsStore.countdownMode" :options="countDownSelection" optionLabel="name"
+            optionValue="code" placeholder="Chọn chế độ" />
+        
+        <h5 for="title">Tiêu đề</h5>
+        <InputText class="settingDiv" id="title" type="text" v-model="settingsStore.title" />
+        
+        <h5 for="times">Thời gian</h5>
+        <div class="time-container">
+            <div>
+                <label for="hours">Giờ: </label>
+                <InputNumber inputId="hours" showButtons v-model="timerStore.inputTime.hours" />
+            </div>
+            <div>
+                <label for="minutes">Phút: </label>
+                <InputNumber inputId="minutes" showButtons v-model="timerStore.inputTime.minutes" />
+            </div>
+            <div>
+                <label for="seconds">Giây: </label>
+                <InputNumber inputId="seconds" showButtons v-model="timerStore.inputTime.seconds" />
+            </div>
         </div>
-        <div>
-            <label for="minutes">Phút: </label>
-            <InputNumber inputId="minutes" showButtons v-model="timerStore.inputTime.minutes" />
-        </div>
-        <div>
-            <label for="seconds">Giây: </label>
-            <InputNumber inputId="seconds" showButtons v-model="timerStore.inputTime.seconds" />
+        
+        <h5 v-if="settingsStore.countdownMode == CountdownMode.SIMPLE_COUNTDOWN" for="nextTitle">
+            Tiếp theo
+        </h5>
+        <InputText v-if="settingsStore.countdownMode == CountdownMode.SIMPLE_COUNTDOWN" class="settingDiv" id="nextTitle"
+            type="text" v-model="settingsStore.nextTitle" />
+        
+        <br />
+        
+        <h5 />
+        <div class="start-button-div">
+            <Button class="start-button" label="Bắt đầu" @click="startClock()" />
         </div>
     </div>
-
-    <h5 v-if="settingsStore.countdownMode == CountdownMode.SIMPLE_COUNTDOWN" for="nextTitle">
-        Tiếp theo
-    </h5>
-    <InputText v-if="settingsStore.countdownMode == CountdownMode.SIMPLE_COUNTDOWN" class="settingDiv" id="nextTitle"
-        type="text" v-model="settingsStore.nextTitle" />
-
-    <br />
-
-    <h5 />
-    <div class="start-button-div">
-        <Button class="start-button" label="Bắt đầu" @click="startClock()" />
-    </div>
-
 </template>
 
 <style scoped>
+.container {
+    padding: 20px;
+}
 .settingDiv {
     width: 100%;
 }
