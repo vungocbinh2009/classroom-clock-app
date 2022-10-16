@@ -19,7 +19,7 @@
     "electron-builder": "^23.3.3",
     "electron-installer-snap": "^5.2.0",
     "sass": "^1.55.0",
-    "typescript": "^4.7.4",
+    "typescript": "^4.8.4",
     "vite": "^3.1.8",
     "vite-plugin-electron": "^0.9.3",
     "vue": "^3.2.41",
