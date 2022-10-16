@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.1",
-    "electron": "^20.2.0",
+    "electron": "^21.1.1",
     "electron-builder": "^23.3.3",
     "electron-installer-snap": "^5.2.0",
     "sass": "^1.55.0",
