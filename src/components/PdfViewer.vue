@@ -24,6 +24,8 @@ let getFilePath = computed(() => {
 /**
  * Lưu ý về vị trí thay đổi màu trên giao diện pdfjs
  * - Màu sắc thanh toolbar: Tìm dòng --toolbar-bg-color:
+ * - Màu nền của khung hiển thị pdf: --body-bg-color:
+ * - Màu thanh toolbar của sidebar: --sidebar-toolbar-bg-color:
  */
 </script>
 <style scoped>

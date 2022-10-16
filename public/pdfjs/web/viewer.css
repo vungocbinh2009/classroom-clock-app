@@ -1018,7 +1018,7 @@
   --doorhanger-icon-opacity: 0.9;
 
   --main-color: rgba(12, 12, 13, 1);
-  --body-bg-color: rgba(237, 237, 240, 1);
+  --body-bg-color: #FFCCB3;
   --errorWrapper-bg-color: rgba(255, 110, 110, 1);
   --progressBar-percent: 0%;
   --progressBar-end-offset: 0;
@@ -1032,7 +1032,7 @@
 
   --sidebar-narrow-bg-color: rgba(237, 237, 240, 0.9);
   --sidebar-toolbar-bg-color: rgba(245, 246, 247, 1);
-  --toolbar-bg-color: rgba(249, 249, 250, 1);
+  --toolbar-bg-color: #554994;
   --toolbar-border-color: rgba(204, 204, 204, 1);
   --button-hover-color: rgba(221, 222, 223, 1);
   --toggled-btn-color: rgba(0, 0, 0, 1);
@@ -1105,18 +1105,18 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --main-color: rgba(249, 249, 250, 1);
-    --body-bg-color: rgba(42, 42, 46, 1);
+    --body-bg-color: #FFCCB3;
     --errorWrapper-bg-color: rgba(169, 14, 14, 1);
     --progressBar-color: rgba(0, 96, 223, 1);
     --progressBar-indeterminate-bg-color: rgba(40, 40, 43, 1);
     --progressBar-indeterminate-blend-color: rgba(20, 68, 133, 1);
-    --scrollbar-color: rgba(121, 121, 123, 1);
+    --scrollbar-color: rgba(250, 121, 123, 1);
     --scrollbar-bg-color: rgba(35, 35, 39, 1);
     --toolbar-icon-bg-color: rgba(255, 255, 255, 1);
     --toolbar-icon-hover-bg-color: rgba(255, 255, 255, 1);
 
     --sidebar-narrow-bg-color: rgba(42, 42, 46, 0.9);
-    --sidebar-toolbar-bg-color: rgba(50, 50, 52, 1);
+    --sidebar-toolbar-bg-color: #554994;
     --toolbar-bg-color: #554994; /* Màu toolbar đặt tại đây*/
     --toolbar-border-color: rgba(12, 12, 13, 1);
     --button-hover-color: rgba(102, 102, 103, 1);

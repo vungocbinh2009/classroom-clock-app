@@ -92,7 +92,6 @@ let showOptionMenu = (event: Event) => {
 
 <style scoped>
 .container {
-    background-color: orangered;
 }
 .pdf-viewer {
     width: 100%;
