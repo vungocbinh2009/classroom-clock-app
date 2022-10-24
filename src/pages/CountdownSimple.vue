@@ -85,7 +85,7 @@ let showOptionMenu = (event: Event) => {
 }
 
 .timer-text {
-    font-size: 200px;
+    font-size: 256px;
     color: white;
 }
 

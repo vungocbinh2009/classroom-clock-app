@@ -84,15 +84,13 @@ let showOptionMenu = (event: Event) => {
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>
         <TitleDialog :display="displayTitleDialog" @closeDialog="displayTitleDialog = false" />
         <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
-        <Message class="message" v-show="showMessage" @close="showMessage = false">
+        <Message class="message" v-show="showMessage" @close="showMessage = false" icon="null">
             <h1 class="message-text">{{timerStore.displayTimeString}} - {{settingsStore.title}}</h1>
         </Message>
     </div>
 </template>
 
 <style scoped>
-.container {
-}
 .pdf-viewer {
     width: 100%;
     height: 100vh;

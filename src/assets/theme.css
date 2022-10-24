@@ -5279,13 +5279,13 @@ Màu sau khi thay đổi: #F675A8
   background: #F29393;
   border: solid transparent;
   border-width: 0 0 0 0;
-  color: #01579B;
+  color: #000000;
 }
 .p-message.p-message-info .p-message-icon {
-  color: #01579B;
+  color: #000000;
 }
 .p-message.p-message-info .p-message-close {
-  color: #01579B;
+  color: #FFFFFF;
 }
 .p-message.p-message-success {
   background: #C8E6C9;

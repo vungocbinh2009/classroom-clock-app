@@ -1,6 +1,6 @@
 {
   "name": "classroom-clock-app",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "main": "dist/electron/main/index.js",
   "description": "A simple text editor and PDF viewer with clock and RNG",
   "author": "Vũ Ngọc Bình <vungocbinh@protonmail.com>",
@@ -17,7 +17,6 @@
     "@vitejs/plugin-vue": "^3.0.1",
     "electron": "^21.1.1",
     "electron-builder": "^23.3.3",
-    "electron-installer-snap": "^5.2.0",
     "sass": "^1.55.0",
     "typescript": "^4.8.4",
     "vite": "^3.1.8",
