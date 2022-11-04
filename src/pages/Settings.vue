@@ -70,7 +70,7 @@ onMounted(() => {
             Tiếp theo
         </h5>
         <InputText v-if="settingsStore.countdownMode == CountdownMode.SIMPLE_COUNTDOWN" class="settingDiv" id="nextTitle"
-            type="text" v-model="settingsStore.nextTitle" />
+            type="text" v-model="settingsStore.subtitle" />
         
         <br />
         

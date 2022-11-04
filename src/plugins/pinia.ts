@@ -8,13 +8,13 @@ import { displayTime } from "../utils/timer";
 export let useSettingsStore = defineStore("settings", () => {
   let countdownMode = ref(CountdownMode.SIMPLE_COUNTDOWN);
   let title = ref("Làm bài tập");
-  let nextTitle = ref("Tiếp theo:");
+  let subtitle = ref("Tiếp theo:");
 
   let selectedFilePath = ref("");
   return {
     countdownMode,
     title,
-    nextTitle,
+    subtitle,
     selectedFilePath,
   };
 });
@@ -61,7 +61,7 @@ export let useTimerStore = defineStore("timer", () => {
     }
   };
   let stopTimer = () => {
-    timer.stop()
+    timer.stop();
   };
   return {
     inputTime,

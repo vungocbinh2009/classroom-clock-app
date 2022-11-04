@@ -6,10 +6,11 @@ import PdfViewer from '../components/PdfViewer.vue'
 import Menu from 'primevue/menu';
 import { MenuItem, MenuItemCommandEvent } from 'primevue/menuitem';
 import TimerDialog from '../components/TimerDialog.vue';
-import TitleDialog from '../components/TitleDialog.vue'
+import TextDialog from '../components/TextDialog.vue'
 import RandomNumberDialog from '../components/RandomNumberDialog.vue'
 import Message from 'primevue/message';
 import Button from 'primevue/button';
+import {PiniaStringState} from "../utils/enum"
 
 
 let settingsStore = useSettingsStore()
@@ -31,6 +32,7 @@ let menuItem: Array<MenuItem> = [
         label: "Quay lại",
         command: (event: MenuItemCommandEvent) => {
             router.back()
+            timerStore.stopTimer()
         },
     },
     {
@@ -82,7 +84,7 @@ let showOptionMenu = (event: Event) => {
         <Button icon="pi pi-ellipsis-v" class="p-button-rounded options-button" @click="showOptionMenu($event)"/>
         <Menu ref="optionMenu" :model="menuItem" :popup="true"/>
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>
-        <TitleDialog :display="displayTitleDialog" @closeDialog="displayTitleDialog = false" />
+        <TextDialog :display="displayTitleDialog" :updateState="PiniaStringState.TITLE" @closeDialog="displayTitleDialog = false" />
         <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
         <Message class="message" v-show="showMessage" @close="showMessage = false" icon="null">
             <h1 class="message-text">{{timerStore.displayTimeString}} - {{settingsStore.title}}</h1>

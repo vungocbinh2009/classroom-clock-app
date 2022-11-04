@@ -4,9 +4,11 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { useSettingsStore } from '../plugins/pinia';
 import { ref } from 'vue';
+import { PiniaStringState } from '../utils/enum';
 
 let props = defineProps<{
     display: boolean
+    updateState: PiniaStringState
 }>()
 
 let emits = defineEmits<{
@@ -15,19 +17,26 @@ let emits = defineEmits<{
 
 let settingsStore = useSettingsStore()
 
-let inputTitle = ref(settingsStore.title)
+let inputText = ref(settingsStore.title)
 
 let updateTitle = () => {
-    settingsStore.$patch({
-        title: inputTitle.value
-    })
+    if (props.updateState == PiniaStringState.TITLE) {
+        settingsStore.$patch({
+            title: inputText.value
+        })
+    } else if (props.updateState == PiniaStringState.SUBTITLE) {
+        settingsStore.$patch({
+            subtitle: inputText.value
+        })
+    }
+
     emits('closeDialog')
 }
 </script>
 
 <template>
-    <Dialog header="Nhập tiêu đề" v-model:visible="props.display" :showHeader="true" position="bottom">
-        <InputText type="text" v-model="inputTitle" />
+    <Dialog header="Nhập văn bản" v-model:visible="props.display" :showHeader="true" position="bottom">
+        <InputText type="text" v-model="inputText" />
 
         <template #footer>
             <Button label="Cập nhật" class="p-button-text" @click="updateTitle()" />
