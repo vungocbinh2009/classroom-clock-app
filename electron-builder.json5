@@ -39,5 +39,11 @@
     "summary": "A simple pdf viewer with clock and randomizer",
     "title": "Classroom clock app",
     "compression": null
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "deleteAppDataOnUninstall": false
   }
 }
