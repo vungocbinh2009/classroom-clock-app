@@ -14,7 +14,8 @@
     "artifactName": "${productName}_${version}.${ext}",
     "target": [
       "dmg"
-    ]
+    ],
+    "icon": "public/icon.icns"
   },
   "win": {
     "target": [
@@ -25,7 +26,9 @@
         ]
       }
     ],
-    "artifactName": "${productName}_${version}.${ext}"
+    "icon": "public/icon.ico",
+    "artifactName": "${productName}_${version}.${ext}",
+    "signAndEditExecutable": false
   },
   "linux": {
     "target": [
@@ -33,6 +36,7 @@
       "AppImage",
       "deb"
     ],
+    "icon": "public/icon.png",
     "artifactName": "${productName}_${version}.${ext}"
   },
   "snap": {
@@ -45,5 +49,6 @@
     "perMachine": false,
     "allowToChangeInstallationDirectory": true,
     "deleteAppDataOnUninstall": false
+    
   }
 }
