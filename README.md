@@ -7,7 +7,7 @@ A simple text editor and PDF viewer with countdown clock and random number gener
 - Countdown with text editor.
 
 # Download.
-- You can download .AppImage and .deb file in [Release](https://github.com/vungocbinh2009/classroom-clock-app/releases). This app also have snap package on Snapcraft
+- You can download app for Windows, Linux and MacOS in [Release](https://github.com/vungocbinh2009/classroom-clock-app/releases). This app also have snap package on Snapcraft (Linux)
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/classroom-clock-app)
 
