@@ -12,10 +12,10 @@ A simple text editor and PDF viewer with countdown clock and random number gener
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/classroom-clock-app)
 
 # Screenshot.
-![Settings](/screenshot/Screenshot%201.png)
-![Simple countdown](/screenshot/Screenshot%202.png)
-![PDF Viewer](/screenshot/Screenshot%203.png)
-![Text Editor](/screenshot/Screenshot%204.png)
+![Settings](/screenshot/Screenshot%201.png?)
+![Simple countdown](/screenshot/Screenshot%202.png?)
+![PDF Viewer](/screenshot/Screenshot%203.png?)
+![Text Editor](/screenshot/Screenshot%204.png?)
 
 # License
 Apache License 2.0 (http://www.apache.org/licenses/)
