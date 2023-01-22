@@ -20,9 +20,10 @@
   "win": {
     "target": [
       {
-        "target": "nsis",
+        "target": "portable",
         "arch": [
-          "x64"
+          "x64",
+          "ia32"
         ]
       }
     ],
@@ -44,11 +45,4 @@
     "title": "Classroom clock app",
     "compression": null
   },
-  "nsis": {
-    "oneClick": false,
-    "perMachine": false,
-    "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": false
-    
-  }
 }

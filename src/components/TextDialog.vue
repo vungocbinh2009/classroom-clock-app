@@ -35,7 +35,7 @@ let updateTitle = () => {
 </script>
 
 <template>
-    <Dialog header="Nhập văn bản" v-model:visible="props.display" :showHeader="true" position="bottom">
+    <Dialog header="Nhập văn bản" v-model:visible="props.display" :showHeader="true" position="bottom" :closable="false">
         <InputText type="text" v-model="inputText" />
 
         <template #footer>

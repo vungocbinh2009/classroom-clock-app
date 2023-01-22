@@ -8,6 +8,7 @@ import { MenuItem, MenuItemCommandEvent } from 'primevue/menuitem';
 import TimerDialog from '../components/TimerDialog.vue';
 import TextDialog from '../components/TextDialog.vue'
 import RandomNumberDialog from '../components/RandomNumberDialog.vue'
+import RandomItemDialog from '../components/RandomItemDialog.vue'
 import Message from 'primevue/message';
 import Button from 'primevue/button';
 import {PiniaStringState} from "../utils/enum"
@@ -25,6 +26,7 @@ onMounted(() => {
 let displayTimerDialog = ref(false)
 let displayTitleDialog = ref(false)
 let displayRandomNumberDialog = ref(false)
+let displayRandomItemDialog = ref(false)
 let showMessage = ref(false)
 
 let menuItem: Array<MenuItem> = [
@@ -60,12 +62,20 @@ let menuItem: Array<MenuItem> = [
         },
     },
     {
+        label: "Chọn ngẫu nhiên từ danh sách",
+        command: (event: MenuItemCommandEvent) => {
+            displayRandomItemDialog.value = true
+        },
+    },
+    {
         label: "Hiển thị đồng hồ",
         command: (event: MenuItemCommandEvent) => {
             showMessage.value = true
         },
     },
 ];
+
+
 
 let optionMenu = ref<Menu | null>()
 let showOptionMenu = (event: Event) => {
@@ -86,6 +96,7 @@ let showOptionMenu = (event: Event) => {
         <TimerDialog :display="displayTimerDialog" @closeDialog="displayTimerDialog = false"/>
         <TextDialog :display="displayTitleDialog" :updateState="PiniaStringState.TITLE" @closeDialog="displayTitleDialog = false" />
         <RandomNumberDialog :display="displayRandomNumberDialog" @closeDialog="displayRandomNumberDialog = false" />
+        <RandomItemDialog :display="displayRandomItemDialog" @closeDialog="displayRandomItemDialog = false" />
         <Message class="message" v-show="showMessage" @close="showMessage = false" icon="null">
             <h1 class="message-text">{{timerStore.displayTimeString}} - {{settingsStore.title}}</h1>
         </Message>

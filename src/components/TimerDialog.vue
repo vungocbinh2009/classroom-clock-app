@@ -34,7 +34,7 @@ let updateTime = () => {
 </script>
 
 <template>
-    <Dialog header="Nhập thời gian" v-model:visible="props.display" :showHeader="true" position="bottom">
+    <Dialog header="Nhập thời gian" v-model:visible="props.display" :showHeader="true" position="bottom" :closable="false">
         <InputNumber inputId="hours" placeholder="Hours" showButtons v-model="inputHours" />
         <InputNumber inputId="minutes" placeholder="Minutes" showButtons v-model="inputMinutes" />
         <InputNumber inputId="seconds" placeholder="Seconds" showButtons v-model="inputSeconds" />
