@@ -5,6 +5,7 @@
   "appId": "classroom-clock-app",
   "asar": true,
   "directories": {
+    "buildResources": "public",
     "output": "release/${version}"
   },
   "files": [
@@ -20,7 +21,7 @@
   "win": {
     "target": [
       {
-        "target": "portable",
+        "target": "nsis",
         "arch": [
           "x64",
           "ia32"
@@ -37,7 +38,7 @@
       "AppImage",
       "deb"
     ],
-    "icon": "public/icon.png",
+    "icon": "public/icon.icns",
     "artifactName": "${productName}_${version}.${ext}"
   },
   "snap": {
