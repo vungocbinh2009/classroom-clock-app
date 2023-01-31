@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <iframe height="100%" width=100% :src="`${getFilePath}`"></iframe>
+    <div >
+        <iframe class="dark-mode" height="100%" width=100% :src="`${getFilePath}`"></iframe>
     </div>
 </template>
 
@@ -26,6 +26,8 @@ let getFilePath = computed(() => {
  * - Màu sắc thanh toolbar: Tìm dòng --toolbar-bg-color:
  * - Màu nền của khung hiển thị pdf: --body-bg-color:
  * - Màu thanh toolbar của sidebar: --sidebar-toolbar-bg-color:
+ * - Màu icon: --toolbar-icon-bg-color:
+ * 
  */
 </script>
 <style scoped>
@@ -33,5 +35,9 @@ div {
     width: 100%;
     height: 100%;
     min-width: 400px;
+}
+
+.dark-mode {
+    color-scheme: only dark;
 }
 </style>

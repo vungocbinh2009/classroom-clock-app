@@ -12,7 +12,7 @@
 process.env.DIST = join(__dirname, '../..')
 process.env.PUBLIC = app.isPackaged ? process.env.DIST : join(process.env.DIST, '../public')
 
-import { app, BrowserWindow, shell, ipcMain, protocol } from 'electron'
+import { app, BrowserWindow, shell, ipcMain, protocol, nativeTheme } from 'electron'
 import { release } from 'os'
 import { join } from 'path'
 import { setupIpcMain } from './ipcMain'
@@ -28,13 +28,6 @@ if (!app.requestSingleInstanceLock()) {
   app.quit()
   process.exit(0)
 }
-
-protocol.registerSchemesAsPrivileged([
-  {
-    scheme: "file",
-    privileges: { secure: true, standard: true, bypassCSP: true,  },
-  }
-])
 
 // Remove electron security warnings
 // This warning only shows in development mode
@@ -57,6 +50,8 @@ async function createWindow() {
       contextIsolation: true
     },
   })
+
+  //nativeTheme.themeSource = "dark"
 
   protocol.registerFileProtocol("atom", (request, callback) => {
     const filePath = urlModule.fileURLToPath(

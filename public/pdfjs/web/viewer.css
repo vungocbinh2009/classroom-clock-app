@@ -1090,7 +1090,7 @@
   --progressBar-blend-color: rgba(116, 177, 239, 1);
   --scrollbar-color: auto;
   --scrollbar-bg-color: auto;
-  --toolbar-icon-bg-color: rgba(0, 0, 0, 1);
+  --toolbar-icon-bg-color: rgb(255, 255, 255);
   --toolbar-icon-hover-bg-color: rgba(0, 0, 0, 1);
 
   --sidebar-narrow-bg-color: rgba(237, 237, 240, 0.9);
@@ -1473,6 +1473,7 @@ body {
   background-color: var(--sidebar-toolbar-bg-color);
   box-shadow: var(--toolbarSidebar-box-shadow);
   border-bottom: var(--toolbarSidebar-border-bottom);
+  color-scheme: dark;
 }
 
 [dir="ltr"] #sidebarResizer {
