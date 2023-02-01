@@ -48,6 +48,6 @@
     "primeicons": "^5.0.0",
     "primevue": "^3.17.0",
     "random": "^4.1.0",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.6"
   }
 }
