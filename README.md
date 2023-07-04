@@ -21,5 +21,6 @@ A simple text editor and PDF viewer with countdown clock and random number gener
 Apache License 2.0 (http://www.apache.org/licenses/)
 
 # Donate
-If you find this project useful, you can donate through Flattr: [Flattr link](https://flattr.com/@vungocbinh)
+If you find this project useful, you can donate through Buy me a coffee
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vungocbinh)
 
