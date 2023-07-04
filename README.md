@@ -22,5 +22,7 @@ Apache License 2.0 (http://www.apache.org/licenses/)
 
 # Donate
 If you find this project useful, you can donate through Buy me a coffee
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vungocbinh)
+
+<a href="https://www.buymeacoffee.com/vungocbinh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 
